@@ -1,0 +1,49 @@
+.container{
+    /* background-image: url("../../assets/images/bg.jpeg");
+    background-repeat: no-repeat;
+    background-size:100%;
+    background-size: cover;
+    background-color: rgb(134, 225, 239); */ 
+    padding: 0%;
+    margin: 0%;
+    display: flex;
+    position: relative;
+}
+.productivity-tips {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    left:50px;
+    padding: 20px;
+    font-family: 'Times New Roman', Times, serif;
+}
+  
+  .productivity-tips h2 {
+    color: #080808;
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-size: xx-large;
+    position: relative;
+    left:110px;
+  }
+  
+  .productivity-tips ul {
+    list-style-type:circle;
+    padding: 0;
+  }
+  
+  .productivity-tips li {
+    margin-bottom: 20px;
+
+  }
+  
+  .productivity-tips li strong {
+    font-weight: bold;
+    color:rgb(87, 85, 85);
+    font-size: larger;
+  }
+  
+  .productivity-tips li p {
+    color: #0f0f0f;
+    text-orientation: sideways-right;
+  }

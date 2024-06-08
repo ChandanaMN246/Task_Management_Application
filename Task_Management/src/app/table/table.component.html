@@ -1,0 +1,106 @@
+<div class="serfil">
+  <div class="form-group mt-4">
+    <label for="personIDnameSearch">Search by Id/Name</label>
+    <input type="text" class="form-control" id="personIDnameSearch" placeholder="Search by Id/Name" [(ngModel)]="sendservice.personIDnameSearch">
+    <small *ngIf="sendservice.searchErrorMessage" class="form-text text-danger">{{ sendservice.searchErrorMessage }}</small>
+  </div>
+  <div class="form-group mt-4">
+    <label for="statusFilter">Filter by Status</label>
+    <select class="form-control" id="statusFilter" [(ngModel)]="sendservice.statusFilter">
+      <option value="">--Select--</option>
+      <option value="InProgress">InProgress</option>
+      <option value="Completed">Completed</option>
+    </select>
+  </div>
+</div>
+ 
+<hr>
+ 
+<div class="table-wrapper">
+  <!-- Your table HTML here -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" (click)="sortWithPrompt('personID')">UserId<span [innerHTML]="sortKey === 'personID' ? (sortAscending ? '&#8593;' : '&#8595;') : ''"></span></th>
+        <th scope="col" (click)="sortWithPrompt('personName')">Name<span [innerHTML]="sortKey === 'personName' ? (sortAscending ? '&#8593;' : '&#8595;') : ''"></span></th>
+        <th scope="col" (click)="sortWithPrompt('taskName')">Task<span [innerHTML]="sortKey === 'taskName' ? (sortAscending ? '&#8593;' : '&#8595;') : ''"></span></th>
+        <th scope="col">Description</th>
+        <th scope="col" (click)="sortWithPrompt('dueDate')">Due Date<span [innerHTML]="sortKey === 'dueDate' ? (sortAscending ? '&#8593;' : '&#8595;') : ''"></span></th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="(sendservice.personIDnameSearch ? searchTasksByPersonIDName() : filterTasksByStatus()).length > 0; else noUsersFound">
+        <tr *ngFor="let t of (sendservice.personIDnameSearch ? searchTasksByPersonIDName() : filterTasksByStatus()); let i=index">
+          <!-- Your table row content -->
+          <td>
+            <ng-container *ngIf="!t.editing; else editFieldPersonID">
+              {{ t.personID }}
+            </ng-container>
+            <ng-template #editFieldPersonID>
+              <input title="." type="text" class="form-control" [(ngModel)]="t.personID">
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="!t.editing; else editFieldName">
+              {{ t.personName }}
+            </ng-container>
+            <ng-template #editFieldName>
+              <input type="text" class="form-control" [(ngModel)]="t.personName">
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="!t.editing; else editFieldTask">
+              {{ t.taskName }}
+            </ng-container>
+            <ng-template #editFieldTask>
+              <input type="text" class="form-control" [(ngModel)]="t.taskName">
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="!t.editing; else editFieldDescription">
+              {{ t.description }}
+            </ng-container>
+            <ng-template #editFieldDescription>
+              <textarea class="form-control" rows="3" [(ngModel)]="t.description"></textarea>
+            </ng-template>
+          </td>
+         <td>
+      <ng-container *ngIf="!t.editing; else editFieldDueDate">
+        {{ t.dueDate | date:'yyyy-MM-dd' }}
+        <span *ngIf="isOverdue(t.dueDate)" style="color: red;"> overdue!</span>
+      </ng-container>
+      <ng-template #editFieldDueDate>
+        <!-- Bind the date input field directly to the task's due date property -->
+        <input type="date" class="form-control" [(ngModel)]="t.dueDate">
+      </ng-template>
+    </td>
+     
+          <td>
+            <select class="form-control" [(ngModel)]="t.status" (change)="setStatus(i, t.status)">
+              <option value="InProgress">InProgress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </td>
+          <td>
+            <div *ngIf="!t.editing; else editFieldButtons">
+              <button class="btn btn-primary btn-sm" (click)="editTask(i)">Edit</button>
+              <button class="btn btn-danger btn-sm ml-2" (click)="onDelete(i)">Delete</button> <!-- Added ml-2 for left margin -->
+            </div>
+            <ng-template #editFieldButtons>
+              <button class="btn btn-success btn-sm" (click)="updateTask()">Update</button>
+              <button class="btn btn-danger btn-sm ml-2 reduce-margin" (click)="cancelEdit()">Cancel</button>
+              <button class="btn btn-danger btn-sm reduce-margin" (click)="onDelete(i)">Delete</button>
+            </ng-template>
+           
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #noUsersFound>
+        <tr>
+          <td colspan="7" class="text-center" style="color: red;">No users found.</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>

@@ -1,0 +1,72 @@
+#errorMessage {
+  display: none;
+}
+ 
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table td,
+.table th{
+  padding: 8px;
+  text-align: left;
+}
+.table td {
+  font-size: 15px;
+}
+ 
+.table th {
+  background-color: lightgray;
+}
+ 
+.btn {
+  cursor: pointer;
+  font-size: 12px; /* Adjust font size */
+  margin-left: 2px;
+}
+ 
+.btn-primary {
+  background-color: gray;
+  color: #fff;
+  border: none;
+}
+ 
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+ 
+.text-danger {
+  color: #dc3545;
+}
+ 
+.button-group {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Align buttons to the bottom */
+  margin-top: 20px; /* Add top margin */
+}
+ 
+.button-group button {
+  margin: 0 10px;
+}
+ 
+.serfil {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; /* Add bottom margin */
+}
+ 
+.serfil .form-group {
+  flex: 1; 
+  margin-right: 10px; 
+  position: relative;
+  left :10px;
+}
+ 
+.serfil .form-group select {
+  width: 100%; /* Set full width */
+}

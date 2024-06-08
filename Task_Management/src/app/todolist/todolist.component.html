@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Page Title</title>
+  <link rel="stylesheet" href="todolist.component.css">
+</head>
+<body>
+  <div class="container">
+    <!-- <h1>Task-Tickler</h1> -->
+    <!-- Form for adding tasks -->
+    <div class="mid">
+      <div class="form-section">
+        <form (ngSubmit)="btnClick(taskForm)" #taskForm="ngForm">
+          <div class="form-group">
+            <label for="personID">UserId</label>
+            <input type="text" class="form-control" id="personID"  [(ngModel)]="this.sendservice.selectedTask.personID" name="personID" required [readonly]="this.sendservice.editingIndex !== null" pattern="[0-9]*">
+        </div>
+        
+          <div class="form-group">
+            <label for="personName">Name</label>
+            <input type="text" class="form-control" id="personName"  [(ngModel)]="this.sendservice.selectedTask.personName" name="personName" required [readonly]="this.sendservice.editingIndex !== null">
+          </div>
+          <div class="form-group">
+            <label for="task">Task</label>
+            <input type="text" class="form-control" id="task"  [(ngModel)]="this.sendservice.selectedTask.taskName" name="task" required [readonly]="this.sendservice.editingIndex !== null">
+            <small *ngIf="taskForm.invalid && taskForm.dirty" id="errorMessage" class="form-text text-danger">Required field</small>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="3" [(ngModel)]="this.sendservice.selectedTask.description" name="description" [readonly]="this.sendservice.editingIndex !== null"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="dueDate">Due Date</label>
+            <input type="date" class="form-control" [(ngModel)]="this.sendservice.selectedTask.dueDate" id="dueDate" name="dueDate" required [readonly]="this.sendservice.editingIndex !== null">
+          </div>
+         
+          <div class="button-group">
+            <button [disabled]="taskForm.invalid || this.sendservice.editingIndex !== null" type="submit" class="btn btn-primary" *ngIf="this.sendservice.isNewTask">Add Task</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
